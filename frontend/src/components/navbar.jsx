@@ -6,5 +6,5 @@ const Navbar = () => (
     </div>
   </nav>
 );
-
+// handler на кнопку с deleteAuthorization(удалит токен) + redirect(на /login)
 export default Navbar;

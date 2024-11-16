@@ -1,6 +1,6 @@
 const routes = {
   chat: '/',
-  auth: '/login',
+  login: '/login',
   error: '*',
 }
 

@@ -7,7 +7,6 @@ import ProtectedRoute from './utils/ProtectedRoute.jsx';
 import routes from './utils/routes.js';
 
 const App = () => {
-  // проверить токен?
   return (
   <div className="d-flex flex-column h-100">
     <Navbar />

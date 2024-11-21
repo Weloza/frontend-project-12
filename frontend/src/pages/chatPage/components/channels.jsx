@@ -1,14 +1,14 @@
-import { useGetChannelsQuery } from "../api/channelsApi";
+import { useGetChannelsQuery } from "../../../api/channelsApi.js";
 import { useSelector, useDispatch } from 'react-redux';
-import { setSelectedChannel } from '../slices/channelSlice.js';
+import { setSelectedChannel } from '../../../slices/channelSlice.js';
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import AddButton from '../icons/addButton.svg';
-import routes from "../utils/routes.js";
+import { AddButton } from '../../../icons';
+import { routes } from "../../../utils";
 import cn from 'classnames';
 
 
-const Channels = () => {
+export const Channels = () => {
   const { data, error, isLoading } = useGetChannelsQuery();
   const { selectedChannel } = useSelector((state) => state.selectedChannel);
   const dispatch = useDispatch();
@@ -36,7 +36,7 @@ const Channels = () => {
         <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
           <b>Каналы</b>
           <button type="button" className="p-0 text-primary btn btn-group-vertical">
-            <img src={AddButton} alt='+' />
+            <AddButton />
           </button>
         </div>
         <ul id="channels-box" className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
@@ -71,5 +71,3 @@ const Channels = () => {
       </div>
   );
 };
-
-export default Channels;

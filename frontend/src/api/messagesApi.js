@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import getAuthHeader from '../utils/getAuthHeader';
-import { paths } from '../utils/routes.js';
+import { getAuthHeader } from '../utils';
+import { paths } from '../utils';
 
 const messagesApi = createApi({
   reducerPath: 'messages',

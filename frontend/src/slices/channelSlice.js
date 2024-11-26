@@ -5,7 +5,7 @@ const initialState = {
     id: '1',
     name: 'general',
     removable: false,
-  }
+  },
 };
 
 const channelSlice = createSlice({

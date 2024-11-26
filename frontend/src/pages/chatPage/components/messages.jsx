@@ -23,6 +23,10 @@ export const Messages = ({ children }) => {
       updateMessages(payload);
     });
 
+    return () => {
+      socket.off('newMessage');
+    }
+
   }, [dispatch]);
 
   return (

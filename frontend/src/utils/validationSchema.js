@@ -1,24 +1,30 @@
 import * as Yup from 'yup';
 
-export const getValidationSchema = (channelsNames) => Yup.object().shape({
-  newChannelName: Yup.string()
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов')
-    .required('Обязательное поле')
-    .notOneOf(channelsNames, 'Канал уже существует'),
-});
-
-export const getValidationSchema2 = () => Yup.object().shape({
-  username: Yup.string()
-    .min(3, 'От 3 до 20 символов')
-    .max(20, 'От 3 до 20 символов')
-    .required('Обязательное поле'),
-  
-  password: Yup.string()
-    .min(6, 'Не менее 6 символов')
-    .required('Обязательное поле'),
-  
-  confirmPassword: Yup.string()
-    .required('Обязательное поле')
-    .oneOf([Yup.ref('password')], 'Пароли должны совпадать'),
-});
+export const getValidationSchema = (t, channelsNames = []) => {
+  // Схема валидации для новых каналов
+  if (channelsNames.length > 0) {           
+    return Yup.object().shape({
+      newChannelName: Yup.string()
+        .min(3, t('validationSchema.channelLength'))
+        .max(20, t('validationSchema.channelLength'))
+        .required(t('validationSchema.required'))
+        .notOneOf(channelsNames, t('validationSchema.channelExist')),
+      });
+  } else {
+  // Схема валидации для нового пользователя  
+    return Yup.object().shape({
+      username: Yup.string()
+        .min(3, t('validationSchema.usernameLength'))
+        .max(20, t('validationSchema.usernameLength'))
+        .required(t('validationSchema.required')),
+      
+      password: Yup.string()
+        .min(6, t('validationSchema.passwordLength'))
+        .required(t('validationSchema.required')),
+      
+      confirmPassword: Yup.string()
+        .required(t('validationSchema.required'))
+        .oneOf([Yup.ref('password')], t('validationSchema.passwordsMatch')),
+    });
+  };
+}

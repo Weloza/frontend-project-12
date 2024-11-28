@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useAddChannelMutation } from '../../api/channelsApi';
 import { setSelectedChannel } from '../../slices/channelSlice';
 import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const AddModal = (props) => {
   const {
@@ -11,6 +12,7 @@ export const AddModal = (props) => {
     handleCloseModal,
   } = props.data;
 
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const [addChannel] = useAddChannelMutation();
   const input = useRef(null);
@@ -27,10 +29,12 @@ export const AddModal = (props) => {
       const response = await addChannel(newChannel);
       
       dispatch(setSelectedChannel(response.data));
+      //toast addchannel success
       handleCloseModal();
       resetForm();
     } catch (error) {
-      console.log('err', error);
+      console.log(t('errors.networkError'), error);
+      //toast errornetwork
     }
   }
 
@@ -45,7 +49,7 @@ export const AddModal = (props) => {
   return (
     <Modal show onHide={handleCloseModal} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Добавить канал</Modal.Title>
+        <Modal.Title>{t('modal.addChannel')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -61,7 +65,7 @@ export const AddModal = (props) => {
               ref={input}
               autoFocus
             />
-            <Form.Label className="visually-hidden">Имя канала</Form.Label>
+            <Form.Label className="visually-hidden">{t('modal.channelName')}</Form.Label>
             <Form.Control.Feedback className="invalid-feedback">
               {formik.errors.newChannelName}
             </Form.Control.Feedback>
@@ -71,13 +75,13 @@ export const AddModal = (props) => {
               type="button" 
               className="me-2 btn btn-secondary" 
               onClick={handleCloseModal}>
-              Отменить
+              {t('modal.cancel')}
             </button>
             <button 
               type="submit" 
               className="btn btn-primary" 
               disabled={!formik.isValid}>
-              Отправить
+              {t('modal.send')}
             </button>
           </div>
         </Form>

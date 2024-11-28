@@ -1,27 +1,30 @@
 import axios, { isAxiosError } from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setToken, setUsername } from "../../../slices/authSlice";
-import { getValidationSchema2, routes } from "../../../utils";
+import { getValidationSchema, paths, routes } from "../../../utils";
 import { useFormik } from "formik";
+import { useTranslation } from "react-i18next";
 
 
 export const SignupForm = () => {
+  const { t } = useTranslation();
   const [error, setError] = useState(null);
   const redirect = useNavigate();
   const dispatch = useDispatch();
-  const schema = getValidationSchema2();
+  const schema = getValidationSchema();
+  const input = useRef(null);
 
   useEffect(() => {
     if (error) {
-      console.log(error);
+      input.current.focus();
     }
   }, [error]);
 
   const handleSubmit = async (values, { setSubmitting }) => {
 
-    await axios.post('/api/v1/signup', values)
+    await axios.post(paths.signup, values)
       .then(({ data }) => {
         if (data.token) {
           const token = data.token;
@@ -32,20 +35,18 @@ export const SignupForm = () => {
 
           redirect(routes.chat);
         } else {
-          setError('unknown error');
-          alert('unknown error');
+          setError('SignupError');
         }
       })
       .catch((err) => {
         if (isAxiosError(err)) {
           if (err.response.status === 409) {
-            setError('Пользователь уже существует');
+            setError(t('errors.sugnupError'));
           } else {
           setError(err.message);
-          alert('axios error');
           }
         } else {
-          alert('networkError')
+          setError(t('errors.networkError'))
         }
         setSubmitting(false);
       })
@@ -63,7 +64,7 @@ export const SignupForm = () => {
 
   return (
     <form className="w-50" onSubmit={formik.handleSubmit}>
-      <h1 className="text-center mb-4">Регистрация</h1>
+      <h1 className="text-center mb-4">{t('signupPage.registration')}</h1>
       <div className="form-floating mb-3">
         <input
           id="username"
@@ -74,12 +75,13 @@ export const SignupForm = () => {
             ${formik.errors.username ? 'is-invalid' : null}
             ${error ? 'is-invalid' : null}
             `}
-          placeholder="От 3 до 20 символов"
+          placeholder={t('validationSchema.length')}
           onChange={formik.handleChange}
           value={formik.values.username}
+          ref={input}
           autoFocus
         />
-        <label htmlFor="username">Имя пользователя</label>
+        <label htmlFor="username">{t('signupPage.username')}</label>
         {formik.errors.username && (<div className="invalid-tooltip">{formik.errors.username}</div>)}
       </div>
       <div className="form-floating mb-3">
@@ -92,11 +94,11 @@ export const SignupForm = () => {
             ${formik.errors.password ? 'is-invalid' : null}
             ${error ? 'is-invalid' : null}
             `}
-          placeholder="Не менее 6 символов"
+          placeholder={t('validationSchema.minLength')}
           onChange={formik.handleChange}
           value={formik.values.password}
         />
-        <label htmlFor="password">Пароль</label>
+        <label htmlFor="password">{t('')}</label>
         {formik.errors.password && (<div className="invalid-tooltip">{formik.errors.password}</div>)}
       </div>
       <div className="form-floating mb-4">
@@ -109,15 +111,17 @@ export const SignupForm = () => {
             ${formik.errors.confirmPassword ? 'is-invalid' : null}
             ${error ? 'is-invalid' : null}
             `}
-          placeholder="Пароли должны совпадать"
+          placeholder={t('validationSchema.passwordsMatch')}
           onChange={formik.handleChange}
           value={formik.values.confirmPassword}
         />
-        <label htmlFor="confirmPassword">Подтвердите пароль</label>
+        <label htmlFor="confirmPassword">{t('signupPage.confirmPassword')}</label>
         {formik.errors.confirmPassword && (<div className="invalid-tooltip">{formik.errors.confirmPassword}</div>)}
         {error && (<div className="invalid-tooltip">{error}</div>)}
       </div>
-      <button type="submit" className="w-100 mb-3 btn btn-outline-primary">Зарегистрироваться</button>
+      <button type="submit" className="w-100 mb-3 btn btn-outline-primary">
+        {t('signupPage.register')}
+      </button>
     </form>
   );
 }

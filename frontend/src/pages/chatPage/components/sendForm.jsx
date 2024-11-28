@@ -3,8 +3,10 @@ import { useSelector } from "react-redux";
 import { useAddMessageMutation } from "../../../api/messagesApi";
 import { useFormik } from "formik";
 import { useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 export const SendForm = () => {
+  const { t } = useTranslation();
   const { selectedChannel } = useSelector((state) => state.selectedChannel);
   const username = useSelector((state) => state.auth.username);
   const [addMessage] = useAddMessageMutation();
@@ -49,8 +51,8 @@ export const SendForm = () => {
         <div className="input-group has-validation">
           <input
             name="message"
-            aria-label="Новое сообщение" 
-            placeholder="Введите сообщение..." 
+            aria-label={t('chatPage.newMessage')} 
+            placeholder={t('chatPage.enterMessage')} 
             className="border-0 p-0 ps-2 form-control"
             value={formik.values.message}
             onChange={formik.handleChange}
@@ -59,7 +61,7 @@ export const SendForm = () => {
           />
           <button type="submit" className="btn btn-group-vertical" disabled={formik.isSubmitting}>
             <SendButton color="#0d6efd" />
-            <span className="visually-hidden">Отправить</span>
+            <span className="visually-hidden">{t('chatPage.send')}</span>
           </button>
         </div>
       </form>

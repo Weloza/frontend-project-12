@@ -9,21 +9,29 @@ import cn from 'classnames';
 import { setModal } from "../../../slices/modalSlice.js";
 import { io } from "socket.io-client";
 import { ModalsContainer } from "../../../components/modals";
+import { useTranslation } from "react-i18next";
 
 
 export const Channels = () => {
+  const { t } = useTranslation();
   const { data, error, isLoading } = useGetChannelsQuery();
   const { selectedChannel } = useSelector((state) => state.selectedChannel);
   const dispatch = useDispatch();
   const redirect = useNavigate();
+
+  const modals = {
+    add: 'add',
+    delete: 'delete',
+    rename: 'rename',
+  }
 
   useEffect(() => {
     if (error) {
       if (error.status === 401) {
         redirect(routes.login);
       } else {
-        console.error(error);
-        alert('Ошибка сети');
+        console.log(error);
+        //toast errornetwork
       }
     }
   }, [error, redirect]);
@@ -84,18 +92,25 @@ export const Channels = () => {
       <div role="group" className="d-flex dropdown dnt-group">
         <button 
           type="button" 
-          className={cn('w-100', 'rounded-0', 'text-start', 'btn', {
-            'btn-secondary': id === selectedChannel.id,
-          })}
+          className={
+            cn('w-100', 'rounded-0', 'text-start', 'btn', {
+              'btn-secondary': id === selectedChannel.id,
+              }
+            )}
           onClick={() => handleClickChannel({ id, name, removable })}
         >
-          <span className="me-1">#</span>
+          <span className="me-1">{t('chatPage.grid')}</span>
           {name}
         </button>
         {removable &&
           <div className="dropdown">
-            <button className="flex-grow-0 btn dropdown-toggle dropdown-toggle-split" type="button" id={`dropdownMenuButton${id}`} data-bs-toggle="dropdown" aria-expanded="false">
-              <span className="visually-hidden">Управление каналом</span>
+            <button 
+              className="flex-grow-0 btn dropdown-toggle dropdown-toggle-split" 
+              type="button" 
+              id={`dropdownMenuButton${id}`} 
+              data-bs-toggle="dropdown" 
+              aria-expanded="false">
+              <span className="visually-hidden">{t('chatPage.channelManage')}</span>
             </button>
             <ul className="dropdown-menu" aria-labelledby={`dropdownMenuButton${id}`}>
               <li>
@@ -103,8 +118,8 @@ export const Channels = () => {
                   className="dropdown-item" 
                   role="button" 
                   href="#" 
-                  onClick={() => handleRenderModal('rename', id)}>
-                  Переименовать
+                  onClick={() => handleRenderModal(modals.rename, id)}>
+                  {t('chatPage.rename')}
                 </a>
               </li>
               <li>
@@ -112,8 +127,8 @@ export const Channels = () => {
                   className="dropdown-item" 
                   role="button" 
                   href="#" 
-                  onClick={() => handleRenderModal('delete', id)}>
-                  Удалить
+                  onClick={() => handleRenderModal(modals.delete, id)}>
+                  {t('chatPage.delete')}
                 </a>
               </li>
             </ul>
@@ -124,17 +139,17 @@ export const Channels = () => {
   ));
 
   if (isLoading) {
-    return <div>Загрузка чата</div>;
+    return <div>{t('chatPage.chatLoading')}</div>;
   }
 
   return (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-        <b>Каналы</b>
+        <b>{t('chatPage.channels')}</b>
         <button
           type="button"
           className="p-0 text-primary btn btn-group-vertical"
-          onClick={() => handleRenderModal('add')}
+          onClick={() => handleRenderModal(modals.add)}
         >
           <AddButton />
         </button>

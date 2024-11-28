@@ -2,10 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import messagesApi, { useGetMessagesQuery } from "../../../api/messagesApi";
 import { useEffect } from "react";
 import { io } from "socket.io-client";
+import { useTranslation } from "react-i18next";
 
 export const Messages = ({ children }) => {
+  const { t } = useTranslation();
   const dispatch = useDispatch();
-
   const { data = [] } = useGetMessagesQuery();
   const { selectedChannel } = useSelector((state) => state.selectedChannel);
   const selectedChannelMessages = data.filter(({ channelId }) => channelId === selectedChannel.id)
@@ -36,7 +37,9 @@ export const Messages = ({ children }) => {
           <p className="m-0">
             <b>{`# ${selectedChannel.name}`}</b>
           </p>
-          <span className="text-muted">{`${selectedChannelMessages.length} сообщений`}</span>
+          <span className="text-muted">
+            {t('chatPage.messagesCount', { count: selectedChannelMessages.length })}
+          </span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5 ">
           {selectedChannelMessages

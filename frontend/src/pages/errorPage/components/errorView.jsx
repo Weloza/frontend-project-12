@@ -1,11 +1,19 @@
+import { useTranslation } from "react-i18next";
 import { PageNotFound } from "../../../images/pageNotFound";
 
-export const ErrorView = () => (
-  <div className="text-center">
-    <PageNotFound className="img-fluid h-25"/>
-    <h1 className="h4 text-muted">Страница не найдена</h1>
-    <p className="text-muted">
-      Но вы можете перейти <a href="/">на главную страницу</a>
-    </p>
-  </div>
-)
+export const ErrorView = () => {
+  const { t } = useTranslation();
+  
+  return (
+    <div className="text-center">
+      <PageNotFound className="img-fluid h-25"/>
+      <h1 className="h4 text-muted">{t('errorPage.pageNotFound')}</h1>
+      <p className="text-muted">
+        {t('errorPage.butYouCanGo')} 
+        <a href="/">
+          {t('errorPage.toMainPage')}
+        </a>
+      </p>
+    </div>
+  )
+}

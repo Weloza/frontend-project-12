@@ -2,6 +2,7 @@ import { Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRemoveChannelMutation } from '../../api/channelsApi';
 import { setSelectedChannel } from '../../slices/channelSlice';
+import { useTranslation } from 'react-i18next';
 
 export const DeleteModal = (props) => {
   const {
@@ -10,6 +11,7 @@ export const DeleteModal = (props) => {
     defaultChannel,
   } = props.data;
 
+  const { t } = useTranslation();
   const dispatch = useDispatch();
   const selectedChannelId = useSelector((state) => state.selectedChannel.selectedChannel.id);
   const [removeChannel] = useRemoveChannelMutation();
@@ -17,36 +19,38 @@ export const DeleteModal = (props) => {
   const handleDeleteChannel = async (id) => {
     try {
       await removeChannel(id);
+      //toast success delete channel
       handleCloseModal();
       if (selectedChannelId === id) {
         dispatch(setSelectedChannel(defaultChannel));
       }
     } catch (error) {
       console.log('err', error);
+      //toast errornetwork
     }
   }
 
   return (
     <Modal show onHide={handleCloseModal} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Удалить канал</Modal.Title>
+        <Modal.Title>{t('modal.deleteChannel')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
         <div className="modal-body">
-          <p className="lead">Уверены?</p>
+          <p className="lead">{t('modal.areYouSure')}</p>
           <div className="d-flex justify-content-end">
             <button 
               type="button" 
               className="me-2 btn btn-secondary" 
               onClick={handleCloseModal}>
-              Отменить
+              {t('modal.cancel')}
             </button>
             <button 
               type="submit" 
               className="btn btn-danger" 
               onClick={() => handleDeleteChannel(editedChannelId)}>
-              Удалить
+              {t('modal.delete')}
             </button>
           </div>
         </div>

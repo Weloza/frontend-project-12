@@ -2,6 +2,7 @@ import { Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useEditChannelMutation } from '../../api/channelsApi';
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const RenameModal = (props) => {
   const {
@@ -10,6 +11,7 @@ export const RenameModal = (props) => {
     handleCloseModal,
   } = props.data;
 
+  const { t } = useTranslation();
   const [editChannel] = useEditChannelMutation();
   const input = useRef(null);                      
 
@@ -19,10 +21,12 @@ export const RenameModal = (props) => {
         id: editedChannelId,
         name: values.newChannelName,
       });
+      //toast succes rename
       handleCloseModal();
       resetForm();
     } catch (error) {
       console.log('err', error);
+      //toast errornetwork
     }
   }
 
@@ -37,7 +41,7 @@ export const RenameModal = (props) => {
   return (
     <Modal show onHide={handleCloseModal} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Переименовать канал</Modal.Title>
+        <Modal.Title>{t('modal.renameChannel')}</Modal.Title>
       </Modal.Header>
 
       <Modal.Body>
@@ -52,7 +56,7 @@ export const RenameModal = (props) => {
               ref={input}
               autoFocus
             />
-            <Form.Label className="visually-hidden">Имя канала</Form.Label>
+            <Form.Label className="visually-hidden">{t('modal.channelName')}</Form.Label>
             <Form.Control.Feedback className="invalid-feedback">
               {formik.errors.newChannelName}
             </Form.Control.Feedback>
@@ -61,9 +65,9 @@ export const RenameModal = (props) => {
                 type="button" 
                 className="me-2 btn btn-secondary" 
                 onClick={handleCloseModal}>
-                Отменить
+                {t('modal.cancel')}
               </button>
-              <button type="submit" className="btn btn-primary">Отправить</button>
+              <button type="submit" className="btn btn-primary">{t('modal.send')}</button>
             </div>
           </Form.Group>
         </Form>

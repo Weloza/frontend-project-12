@@ -13,7 +13,7 @@ export const SignupForm = () => {
   const [error, setError] = useState(null);
   const redirect = useNavigate();
   const dispatch = useDispatch();
-  const schema = getValidationSchema();
+  const schema = getValidationSchema(t);
   const input = useRef(null);
 
   useEffect(() => {
@@ -120,7 +120,7 @@ export const SignupForm = () => {
         {error && (<div className="invalid-tooltip">{error}</div>)}
       </div>
       <button type="submit" className="w-100 mb-3 btn btn-outline-primary">
-        {t('signupPage.register')}
+        {t('signupPage.signup')}
       </button>
     </form>
   );

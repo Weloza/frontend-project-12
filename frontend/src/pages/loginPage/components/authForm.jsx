@@ -22,8 +22,8 @@ export const AuthForm = () => {
   }, [error]);
 
   const handleSubmit = async (values, { setSubmitting }) => {
-
-    await axios.post(paths.login, values)
+    const path = paths.login();
+    await axios.post(path, values)
       .then(({ data }) => {
         if (data.token) {
           const token = data.token;

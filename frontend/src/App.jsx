@@ -24,7 +24,7 @@ export const App = () => {
     });
 
   const rollbarConfig = {
-    accessToken: 'POST_CLIENT_ITEM_ACCESS_TOKEN',
+    accessToken: 'eb20cc158470461ebb174fb634e54d6b',
     captureUncaught: true,
     captureUnhandledRejections: true,
     environment: 'production',

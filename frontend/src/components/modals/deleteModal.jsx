@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRemoveChannelMutation } from '../../api/channelsApi';
 import { setSelectedChannel } from '../../slices/channelSlice';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 export const DeleteModal = (props) => {
   const {
@@ -19,14 +20,14 @@ export const DeleteModal = (props) => {
   const handleDeleteChannel = async (id) => {
     try {
       await removeChannel(id);
-      //toast success delete channel
+      toast.success(t('modal.channelRemoveSuccess'));
       handleCloseModal();
       if (selectedChannelId === id) {
         dispatch(setSelectedChannel(defaultChannel));
       }
     } catch (error) {
       console.log('err', error);
-      //toast errornetwork
+      toast.error(t('error.networkError'));
     }
   }
 

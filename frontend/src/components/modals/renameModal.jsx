@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import { useEditChannelMutation } from '../../api/channelsApi';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 export const RenameModal = (props) => {
   const {
@@ -13,7 +14,7 @@ export const RenameModal = (props) => {
 
   const { t } = useTranslation();
   const [editChannel] = useEditChannelMutation();
-  const input = useRef(null);                      
+  const input = useRef(null);  
 
   const handleRenameChannel = async (values, { resetForm }) => {
     try {
@@ -21,12 +22,12 @@ export const RenameModal = (props) => {
         id: editedChannelId,
         name: values.newChannelName,
       });
-      //toast succes rename
+      toast.success(t('modal.channelRenameSuccess'));
       handleCloseModal();
       resetForm();
     } catch (error) {
       console.log('err', error);
-      //toast errornetwork
+      toast.error(t('error.networkError'));
     }
   }
 

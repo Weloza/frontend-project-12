@@ -6,6 +6,7 @@ import { setToken, setUsername } from "../../../slices/authSlice";
 import { paths, routes } from "../../../utils";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 export const AuthForm = () => {
   const { t } = useTranslation();
@@ -43,7 +44,7 @@ export const AuthForm = () => {
           }
         } else {
           console.log(err)
-          //toast networkerror
+          toast(t('errors.networkError'))
         }
         setSubmitting(false);
       })

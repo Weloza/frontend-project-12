@@ -4,6 +4,7 @@ import { useAddMessageMutation } from "../../../api/messagesApi";
 import { useFormik } from "formik";
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import filter from 'leo-profanity';
 
 export const SendForm = () => {
   const { t } = useTranslation();
@@ -11,11 +12,14 @@ export const SendForm = () => {
   const username = useSelector((state) => state.auth.username);
   const [addMessage] = useAddMessageMutation();
   const input = useRef(null);
+  
+  filter.add(filter.getDictionary('ru'));
 
   const handleSendMessage = async (values, { setSubmitting, resetForm }) => {
     try {
+      const filteredMessage = filter.clean(values.message);
       const message = {
-        body: values.message,
+        body: filteredMessage,
         channelId: selectedChannel.id,
         username: username,
       };

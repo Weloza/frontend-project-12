@@ -8,6 +8,9 @@ export const ru = {
     areYouSure: 'Уверены?',
     delete: 'Удалить',
     renameChannel: 'Переименовать канал',
+    channelAddSuccess: 'Канал успешно добавлен',
+    channelRemoveSuccess: 'Канал успешно удален',
+    channelRenameSuccess: 'Канал успешно переименован',
   },
 
   navbar: {

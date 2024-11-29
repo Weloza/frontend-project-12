@@ -10,6 +10,8 @@ import { setModal } from "../../../slices/modalSlice.js";
 import { io } from "socket.io-client";
 import { ModalsContainer } from "../../../components/modals";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import { deleteAuthorization } from "../../../slices/authSlice.js";
 
 
 export const Channels = () => {
@@ -26,15 +28,18 @@ export const Channels = () => {
   }
 
   useEffect(() => {
+    //не срабатывает при возникновении ошибки??
     if (error) {
       if (error.status === 401) {
+        dispatch(deleteAuthorization());
         redirect(routes.login);
+        console.log('401');
       } else {
-        console.log(error);
-        //toast errornetwork
+        console.log(error.status);
+        toast(t('errors.networkError'))
       }
     }
-  }, [error, redirect]);
+  }, [error, redirect, dispatch, t]);
 
   useEffect(() => {
     const addChannel = (newChannel) => dispatch(
@@ -139,7 +144,9 @@ export const Channels = () => {
   ));
 
   if (isLoading) {
-    return <div>{t('chatPage.chatLoading')}</div>;
+    return (
+      <div>{t('chatPage.chatLoading')}</div>
+    );
   }
 
   return (

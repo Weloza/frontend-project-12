@@ -5,6 +5,8 @@ import { useAddChannelMutation } from '../../api/channelsApi';
 import { setSelectedChannel } from '../../slices/channelSlice';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import filter from 'leo-profanity';
 
 export const AddModal = (props) => {
   const {
@@ -16,6 +18,8 @@ export const AddModal = (props) => {
   const dispatch = useDispatch();
   const [addChannel] = useAddChannelMutation();
   const input = useRef(null);
+  
+  filter.add(filter.getDictionary('ru'));
 
   useEffect(() => {
     if (input.current) {
@@ -25,16 +29,17 @@ export const AddModal = (props) => {
 
   const handleAddChannel = async (values, { resetForm }) => {
     try {
-      const newChannel = { name: values.newChannelName };
+      const filteredName = filter.clean(values.newChannelName);
+      const newChannel = { name: filteredName };
       const response = await addChannel(newChannel);
       
       dispatch(setSelectedChannel(response.data));
-      //toast addchannel success
+      toast.success(t('modal.channelAddSuccess'));
       handleCloseModal();
       resetForm();
     } catch (error) {
       console.log(t('errors.networkError'), error);
-      //toast errornetwork
+      toast.error(t('error.networkError'));
     }
   }
 

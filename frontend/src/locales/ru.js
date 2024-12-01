@@ -8,9 +8,9 @@ export const ru = {
     areYouSure: 'Уверены?',
     delete: 'Удалить',
     renameChannel: 'Переименовать канал',
-    channelAddSuccess: 'Канал успешно добавлен',
-    channelRemoveSuccess: 'Канал успешно удален',
-    channelRenameSuccess: 'Канал успешно переименован',
+    channelAddSuccess: 'Канал создан',
+    channelRemoveSuccess: 'Канал удалён',
+    channelRenameSuccess: 'Канал переименован',
   },
 
   navbar: {
@@ -66,7 +66,7 @@ export const ru = {
   },
 
   errors: {
-    networkError: 'Ошибка сети',
+    networkError: 'Ошибка соединения',
     authError: 'Неверные имя пользователя или пароль',
     signupError: 'Пользователь уже существует',
   }

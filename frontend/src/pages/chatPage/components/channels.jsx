@@ -28,14 +28,12 @@ export const Channels = () => {
   }
 
   useEffect(() => {
-    //не срабатывает при возникновении ошибки??
     if (error) {
       if (error.status === 401) {
         dispatch(deleteAuthorization());
         redirect(routes.login);
-        console.log('401');
       } else {
-        console.log(error.status);
+        console.log(error);
         toast(t('errors.networkError'))
       }
     }
@@ -92,7 +90,7 @@ export const Channels = () => {
     dispatch(setModal({ activeModal, editedChannelId }));
   };
 
-  const channelsList = !isLoading && data.map(({ id, name, removable }) => (
+  const channelsList = !isLoading && !error && data.map(({ id, name, removable }) => (
     <li key={id} className="nav-item w-100">
       <div role="group" className="d-flex dropdown dnt-group">
         <button 
@@ -149,7 +147,7 @@ export const Channels = () => {
     );
   }
 
-  return (
+  return !error && (
     <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>{t('chatPage.channels')}</b>

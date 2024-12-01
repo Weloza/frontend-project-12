@@ -23,8 +23,8 @@ export const SignupForm = () => {
   }, [error]);
 
   const handleSubmit = async (values, { setSubmitting }) => {
-
-    await axios.post(paths.signup, values)
+    const path = paths.signup();
+    await axios.post(path, values)
       .then(({ data }) => {
         if (data.token) {
           const token = data.token;

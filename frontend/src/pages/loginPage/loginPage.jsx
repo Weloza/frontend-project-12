@@ -1,13 +1,14 @@
 import { PageContainer } from "../../components";
 import { Navbar } from "../../components";
 import { CardContainer } from "../../components";
-import { LoginCard } from "./components";
+import { CardBody, CardFooter } from "./components";
 
 export const LoginPage = () => (
   <PageContainer>
     <Navbar />
     <CardContainer>
-      <LoginCard />
+      <CardBody />
+      <CardFooter />
     </CardContainer>
   </PageContainer>
 );

@@ -63,9 +63,10 @@ export const RenameModal = (props) => {
               onChange={formik.handleChange}
               isInvalid={formik.errors.newChannelName}
               ref={input}
-              
             />
-            <Form.Label className="visually-hidden">{t('modal.channelName')}</Form.Label>
+            <Form.Label className="visually-hidden" htmlFor='newChannelName'>
+              {t('modal.channelName')}
+            </Form.Label>
             <Form.Control.Feedback className="invalid-feedback">
               {formik.errors.newChannelName}
             </Form.Control.Feedback>

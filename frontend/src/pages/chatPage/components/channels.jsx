@@ -97,9 +97,9 @@ export const Channels = () => {
         <button 
           type="button" 
           className={
-            cn('w-100', 'rounded-0', 'text-start', 'btn', {
-              'btn-secondary': id === selectedChannel.id,
-              }
+            cn('w-100', 'rounded-0', 'text-start', 'btn', 
+              { 'btn-secondary': id === selectedChannel.id },
+              { 'text-truncate': removable },
             )}
           onClick={() => handleClickChannel({ id, name, removable })}
         >

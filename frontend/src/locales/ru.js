@@ -68,6 +68,6 @@ export const ru = {
   errors: {
     networkError: 'Ошибка соединения',
     authError: 'Неверные имя пользователя или пароль',
-    signupError: 'Пользователь уже существует',
+    signupError: 'Такой пользователь уже существует',
   }
 };

@@ -6,7 +6,8 @@ import { setToken, setUsername } from "../../../slices/authSlice";
 import { getValidationSchema, paths, routes } from "../../../utils";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
-
+import { Tooltip } from "./tooltip";
+import cn from 'classnames';
 
 export const SignupForm = () => {
   const { t } = useTranslation();
@@ -41,7 +42,7 @@ export const SignupForm = () => {
       .catch((err) => {
         if (isAxiosError(err)) {
           if (err.response.status === 409) {
-            setError(t('errors.sugnupError'));
+            setError(t('errors.signupError'));
           } else {
           setError(err.message);
           }
@@ -70,54 +71,50 @@ export const SignupForm = () => {
           id="username"
           name="username"
           type="text"
-          className={`
-            form-control 
-            ${formik.errors.username ? 'is-invalid' : null}
-            ${error ? 'is-invalid' : null}
-            `}
+          className={cn('form-control', {
+            'is-invalid': ((formik.touched.username && formik.errors.username) || error),
+          })}
           placeholder={t('validationSchema.length')}
           onChange={formik.handleChange}
           value={formik.values.username}
+          onBlur={formik.handleBlur}
           ref={input}
           autoFocus
         />
         <label htmlFor="username">{t('signupPage.username')}</label>
-        {formik.errors.username && (<div className="invalid-tooltip">{formik.errors.username}</div>)}
+        <Tooltip touched={formik.touched.username} validError={formik.errors.username} authError={error} last={false} />
       </div>
       <div className="form-floating mb-3">
         <input
           id="password"
           name="password"
           type="password"
-          className={`
-            form-control 
-            ${formik.errors.password ? 'is-invalid' : null}
-            ${error ? 'is-invalid' : null}
-            `}
+          className={cn('form-control', {
+            'is-invalid': ((formik.touched.password && formik.errors.password) || error),
+          })}
           placeholder={t('validationSchema.minLength')}
           onChange={formik.handleChange}
           value={formik.values.password}
+          onBlur={formik.handleBlur}
         />
-        <label htmlFor="password">{t('')}</label>
-        {formik.errors.password && (<div className="invalid-tooltip">{formik.errors.password}</div>)}
+        <label htmlFor="password">{t('signupPage.password')}</label>
+        <Tooltip touched={formik.touched.password} validError={formik.errors.password} authError={error} last={false}/>
       </div>
       <div className="form-floating mb-4">
         <input
           id="confirmPassword"
           name="confirmPassword"
           type="password"
-          className={`
-            form-control 
-            ${formik.errors.confirmPassword ? 'is-invalid' : null}
-            ${error ? 'is-invalid' : null}
-            `}
+          className={cn('form-control', {
+            'is-invalid': ((formik.touched.confirmPassword && formik.errors.confirmPassword) || error),
+          })}
           placeholder={t('validationSchema.passwordsMatch')}
           onChange={formik.handleChange}
           value={formik.values.confirmPassword}
+          onBlur={formik.handleBlur}
         />
         <label htmlFor="confirmPassword">{t('signupPage.confirmPassword')}</label>
-        {formik.errors.confirmPassword && (<div className="invalid-tooltip">{formik.errors.confirmPassword}</div>)}
-        {error && (<div className="invalid-tooltip">{error}</div>)}
+        <Tooltip touched={formik.touched.confirmPassword} validError={formik.errors.confirmPassword} authError={error} last={true} />
       </div>
       <button type="submit" className="w-100 mb-3 btn btn-outline-primary">
         {t('signupPage.signup')}

@@ -16,7 +16,7 @@ Run backend server
 ```sh
 make start-backend
 ```
-Run frontend server(in other terminal)
+Run frontend server(other terminal)
 ```sh
 make start-frontend
 ```

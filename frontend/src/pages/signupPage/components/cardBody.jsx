@@ -13,4 +13,4 @@ export const CardBody = () => {
       <SignupForm />
     </div>
   )
-}
+};

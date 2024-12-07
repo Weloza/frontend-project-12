@@ -1,7 +1,7 @@
 import { Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useEditChannelMutation } from '../../api/channelsApi';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
@@ -15,7 +15,14 @@ export const RenameModal = (props) => {
 
   const { t } = useTranslation();
   const [editChannel] = useEditChannelMutation();
-  const input = useRef(null);  
+  const input = useRef(null);
+
+  useEffect(() => {
+    if (input.current) {
+      input.current.focus();
+      input.current.select();
+    }
+  }, []);
 
   const handleRenameChannel = async (values) => {
     try {
@@ -56,7 +63,7 @@ export const RenameModal = (props) => {
               onChange={formik.handleChange}
               isInvalid={formik.errors.newChannelName}
               ref={input}
-              autoFocus
+              
             />
             <Form.Label className="visually-hidden">{t('modal.channelName')}</Form.Label>
             <Form.Control.Feedback className="invalid-feedback">

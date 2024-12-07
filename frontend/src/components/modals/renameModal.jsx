@@ -40,7 +40,7 @@ export const RenameModal = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      newChannelName: '',
+      newChannelName: editedChannelName,
     },
     validationSchema: schema,
     onSubmit: handleRenameChannel,
@@ -57,7 +57,8 @@ export const RenameModal = (props) => {
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
             <Form.Control 
-              name="newChannelName" 
+              name="newChannelName"
+              id="newChannelName"
               className="mb-2 form-control" 
               value={formik.values.newChannelName} 
               onChange={formik.handleChange}

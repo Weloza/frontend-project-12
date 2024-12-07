@@ -87,8 +87,8 @@ export const Channels = () => {
     dispatch(setSelectedChannel(channel));
   };
 
-  const handleRenderModal = (activeModal, editedChannelId = '') => {
-    dispatch(setModal({ activeModal, editedChannelId }));
+  const handleRenderModal = (activeModal, editedChannelId = '', editedChannelName = '') => {
+    dispatch(setModal({ activeModal, editedChannelId, editedChannelName }));
   };
 
   const channelsList = !isLoading && !error && data.map(({ id, name, removable }) => (
@@ -122,7 +122,7 @@ export const Channels = () => {
                   className="dropdown-item" 
                   role="button" 
                   href="#" 
-                  onClick={() => handleRenderModal(modals.rename, id)}>
+                  onClick={() => handleRenderModal(modals.rename, id, name)}>
                   {t('chatPage.rename')}
                 </a>
               </li>

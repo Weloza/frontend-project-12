@@ -6,6 +6,8 @@ const getChannels = (state) => channelsApi.endpoints.getChannels.select()(state)
 
 const getEditedChannelId = (state) => state.modal.editedChannelId;
 
+const getEditedChannelName = (state) => state.modal.editedChannelName;
+
 const getToken = (state) => state.auth.token;
 
 const getSelectedChannel = (state) => state.selectedChannel.selectedChannel;
@@ -18,6 +20,7 @@ export {
   getSelectedChannelId, 
   getChannels, 
   getEditedChannelId, 
+  getEditedChannelName, 
   getToken, 
   getSelectedChannel, 
   getUsername,

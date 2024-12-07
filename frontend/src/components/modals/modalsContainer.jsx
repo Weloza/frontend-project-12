@@ -3,7 +3,7 @@ import { setModal } from "../../slices/modalSlice";
 import { getNewChannelSchema } from "../../utils";
 import { AddModal, DeleteModal, RenameModal } from "../modals";
 import { useTranslation } from "react-i18next";
-import { getActiveModal, getChannels, getEditedChannelId } from "../../slices/selectors";
+import { getActiveModal, getChannels, getEditedChannelId, getEditedChannelName } from "../../slices/selectors";
 
 export const ModalsContainer = () => {
   const { t } = useTranslation();
@@ -15,11 +15,13 @@ export const ModalsContainer = () => {
   const schema = getNewChannelSchema(t, channelsNames);
 
   const editedChannelId = useSelector(getEditedChannelId);
+  const editedChannelName = useSelector(getEditedChannelName);
 
   const handleCloseModal = () => {
     dispatch(setModal({ 
       activeModal: '', 
       editedChannelId: '',
+      editedChannelName: '',
     }));
   };
 
@@ -39,6 +41,7 @@ export const ModalsContainer = () => {
     handleCloseModal,
     schema,
     editedChannelId,
+    editedChannelName,
     defaultChannel,
   };
 

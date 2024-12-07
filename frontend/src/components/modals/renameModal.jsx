@@ -9,6 +9,7 @@ export const RenameModal = (props) => {
   const {
     schema,
     editedChannelId,
+    editedChannelName,
     handleCloseModal,
   } = props.data;
 
@@ -16,7 +17,7 @@ export const RenameModal = (props) => {
   const [editChannel] = useEditChannelMutation();
   const input = useRef(null);  
 
-  const handleRenameChannel = async (values, { resetForm }) => {
+  const handleRenameChannel = async (values) => {
     try {
       await editChannel({
         id: editedChannelId,
@@ -24,7 +25,6 @@ export const RenameModal = (props) => {
       });
       toast.success(t('modal.channelRenameSuccess'));
       handleCloseModal();
-      resetForm();
     } catch (error) {
       console.log('err', error);
       toast.error(t('error.networkError'));
@@ -33,10 +33,11 @@ export const RenameModal = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      newChannelName: '',
+      newChannelName: editedChannelName,
     },
     validationSchema: schema,
     onSubmit: handleRenameChannel,
+    enableReinitialize: true,
   });
 
   return (

@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { Provider as MainProvider } from 'react-redux';
 import store from './store/store.js';
+import filter from 'leo-profanity';
 
 
 export const App = () => {
@@ -31,7 +32,9 @@ export const App = () => {
     captureUncaught: true,
     captureUnhandledRejections: true,
     environment: 'production',
-  }
+  };
+
+  filter.add(filter.getDictionary('ru'));
 
   return (
     <MainProvider store={store}>

@@ -3,10 +3,11 @@ import { deleteAuthorization } from "../slices/authSlice";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../utils";
 import { useTranslation } from "react-i18next";
+import { getToken } from "../slices/selectors";
 
 export const Navbar = () => {
   const { t } = useTranslation();
-  const token = useSelector((state) => state.auth.token);
+  const token = useSelector(getToken);
   const dispatch = useDispatch();
   const redirect = useNavigate();
 

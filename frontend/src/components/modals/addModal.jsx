@@ -18,8 +18,6 @@ export const AddModal = (props) => {
   const dispatch = useDispatch();
   const [addChannel] = useAddChannelMutation();
   const input = useRef(null);
-  
-  filter.add(filter.getDictionary('ru'));
 
   useEffect(() => {
     if (input.current) {

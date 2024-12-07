@@ -12,12 +12,13 @@ import { ModalsContainer } from "../../../components/modals";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { deleteAuthorization } from "../../../slices/authSlice.js";
+import { getSelectedChannel } from "../../../slices/selectors.js";
 
 
 export const Channels = () => {
   const { t } = useTranslation();
   const { data, error, isLoading } = useGetChannelsQuery();
-  const { selectedChannel } = useSelector((state) => state.selectedChannel);
+  const selectedChannel = useSelector(getSelectedChannel);
   const dispatch = useDispatch();
   const redirect = useNavigate();
 

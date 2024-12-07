@@ -5,15 +5,14 @@ import { useFormik } from "formik";
 import { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import filter from 'leo-profanity';
+import { getSelectedChannel, getUsername } from "../../../slices/selectors";
 
 export const SendForm = () => {
   const { t } = useTranslation();
-  const { selectedChannel } = useSelector((state) => state.selectedChannel);
-  const username = useSelector((state) => state.auth.username);
+  const selectedChannel = useSelector(getSelectedChannel);
+  const username = useSelector(getUsername);
   const [addMessage] = useAddMessageMutation();
   const input = useRef(null);
-  
-  filter.add(filter.getDictionary('ru'));
 
   const handleSendMessage = async (values, { setSubmitting, resetForm }) => {
     try {

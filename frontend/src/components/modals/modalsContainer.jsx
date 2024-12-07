@@ -1,11 +1,16 @@
-import { useDispatch, useSelector } from "react-redux";
-import { setModal } from "../../slices/modalSlice";
-import { getNewChannelSchema } from "../../utils";
-import { AddModal, DeleteModal, RenameModal } from "../modals";
-import { useTranslation } from "react-i18next";
-import { getActiveModal, getChannels, getEditedChannelId, getEditedChannelName } from "../../slices/selectors";
+import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
+import { setModal } from '../../slices/modalSlice';
+import { getNewChannelSchema } from '../../utils';
+import { AddModal, DeleteModal, RenameModal } from './modals';
+import { 
+  getActiveModal,
+  getChannels,
+  getEditedChannelId,
+  getEditedChannelName
+} from '../../slices/selectors';
 
-export const ModalsContainer = () => {
+const ModalsContainer = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const activeModal = useSelector(getActiveModal);
@@ -18,8 +23,8 @@ export const ModalsContainer = () => {
   const editedChannelName = useSelector(getEditedChannelName);
 
   const handleCloseModal = () => {
-    dispatch(setModal({ 
-      activeModal: '', 
+    dispatch(setModal({
+      activeModal: '',
       editedChannelId: '',
       editedChannelName: '',
     }));
@@ -29,7 +34,7 @@ export const ModalsContainer = () => {
     id: '1',
     name: 'general',
     removable: false,
-  }
+  };
 
   const modals = {
     add: AddModal,
@@ -53,5 +58,7 @@ export const ModalsContainer = () => {
 
   return (
     <ActiveModal data={props} />
-  )
+  );
 };
+
+export default ModalsContainer;

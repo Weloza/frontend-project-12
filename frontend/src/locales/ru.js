@@ -1,4 +1,4 @@
-export const ru = {
+const ru = {
   modal: {
     addChannel: 'Добавить канал',
     channelName: 'Имя канала',
@@ -69,5 +69,7 @@ export const ru = {
     networkError: 'Ошибка соединения',
     authError: 'Неверные имя пользователя или пароль',
     signupError: 'Такой пользователь уже существует',
-  }
+  },
 };
+
+export default ru;

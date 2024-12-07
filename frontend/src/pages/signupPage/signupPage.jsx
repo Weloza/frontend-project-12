@@ -1,7 +1,7 @@
-import { PageContainer, Navbar, CardContainer } from "../../components";
-import { CardBody } from "./components";
+import { PageContainer, Navbar, CardContainer } from '../../components';
+import { CardBody } from './components';
 
-export const SignupPage = () => (
+const SignupPage = () => (
   <PageContainer>
     <Navbar />
     <CardContainer>
@@ -9,3 +9,5 @@ export const SignupPage = () => (
     </CardContainer>
   </PageContainer>
 );
+
+export default SignupPage;

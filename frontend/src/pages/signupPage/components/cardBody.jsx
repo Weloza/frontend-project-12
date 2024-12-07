@@ -1,8 +1,8 @@
 import { useTranslation } from 'react-i18next';
 import SignupImage from '../../../images/signup.jpg';
-import { SignupForm } from "./signupForm";
+import { SignupForm } from './signupForm';
 
-export const CardBody = () => {
+const CardBody = () => {
   const { t } = useTranslation();
 
   return (
@@ -12,5 +12,7 @@ export const CardBody = () => {
       </div>
       <SignupForm />
     </div>
-  )
+  );
 };
+
+export default CardBody;

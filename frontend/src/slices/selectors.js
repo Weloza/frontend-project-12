@@ -1,4 +1,4 @@
-import channelsApi from "../api/channelsApi";
+import channelsApi from '../api/channelsApi';
 
 const getSelectedChannelId = (state) => state.selectedChannel.selectedChannel.id;
 
@@ -17,12 +17,12 @@ const getUsername = (state) => state.auth.username;
 const getActiveModal = (state) => state.modal.activeModal;
 
 export { 
-  getSelectedChannelId, 
-  getChannels, 
-  getEditedChannelId, 
-  getEditedChannelName, 
-  getToken, 
-  getSelectedChannel, 
+  getSelectedChannelId,
+  getChannels,
+  getEditedChannelId,
+  getEditedChannelName,
+  getToken,
+  getSelectedChannel,
   getUsername,
   getActiveModal,
 };

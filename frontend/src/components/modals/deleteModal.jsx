@@ -1,17 +1,18 @@
 import { Modal } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { useRemoveChannelMutation } from '../../api/channelsApi';
-import { setSelectedChannel } from '../../slices/channelSlice';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { useRemoveChannelMutation } from '../../api/channelsApi';
+import { setSelectedChannel } from '../../slices/channelSlice';
 import { getSelectedChannelId } from '../../slices/selectors';
 
 export const DeleteModal = (props) => {
+  const data = props.data;
   const {
     editedChannelId,
     handleCloseModal,
     defaultChannel,
-  } = props.data;
+  } = data;
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ export const DeleteModal = (props) => {
       console.log('err', error);
       toast.error(t('error.networkError'));
     }
-  }
+  };
 
   return (
     <Modal show onHide={handleCloseModal} centered>
@@ -42,16 +43,18 @@ export const DeleteModal = (props) => {
         <div className="modal-body">
           <p className="lead">{t('modal.areYouSure')}</p>
           <div className="d-flex justify-content-end">
-            <button 
-              type="button" 
-              className="me-2 btn btn-secondary" 
-              onClick={handleCloseModal}>
+            <button
+              type="button"
+              className="me-2 btn btn-secondary"
+              onClick={handleCloseModal}
+            >
               {t('modal.cancel')}
             </button>
-            <button 
-              type="submit" 
-              className="btn btn-danger" 
-              onClick={() => handleDeleteChannel(editedChannelId)}>
+            <button
+              type="submit"
+              className="btn btn-danger"
+              onClick={() => handleDeleteChannel(editedChannelId)}
+            >
               {t('modal.delete')}
             </button>
           </div>
@@ -60,3 +63,5 @@ export const DeleteModal = (props) => {
     </Modal>
   );
 };
+
+export default DeleteModal;

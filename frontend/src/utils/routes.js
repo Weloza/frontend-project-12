@@ -8,7 +8,7 @@ export const routes = {
 export const serverPath = '/api/v1';
 
 export const paths = {
-  signup: () => [serverPath, 'signup'].join('/'), 
+  signup: () => [serverPath, 'signup'].join('/'),
   login: () => [serverPath, 'login'].join('/'),
   channels: () => [serverPath, 'channels'].join('/'),
   messages: () => [serverPath, 'messages'].join('/'),

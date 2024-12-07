@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -20,6 +21,11 @@ const modalSlice = createSlice({
   },
 });
 
-export const { setModal, setEditedChannelId, setShowModal, setHideModal } = modalSlice.actions;
+export const {
+  setModal,
+  setEditedChannelId,
+  setShowModal,
+  setHideModal
+} = modalSlice.actions;
 
 export default modalSlice.reducer;

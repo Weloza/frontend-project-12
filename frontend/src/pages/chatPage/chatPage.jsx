@@ -1,7 +1,12 @@
-import { Navbar, PageContainer } from "../../components";
-import { ChatContainer, Channels, Messages, SendForm } from "./components";
+import { Navbar, PageContainer } from '../../components';
+import {
+  ChatContainer,
+  Channels,
+  Messages,
+  SendForm
+} from './components';
 
-export const ChatPage = () => (
+const ChatPage = () => (
   <PageContainer>
     <Navbar />
     <ChatContainer>
@@ -12,3 +17,5 @@ export const ChatPage = () => (
     </ChatContainer>
   </PageContainer>
 );
+
+export default ChatPage;

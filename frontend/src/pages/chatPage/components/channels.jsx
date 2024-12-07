@@ -1,21 +1,19 @@
-import channelsApi, { useGetChannelsQuery } from "../../../api/channelsApi.js";
+import { toast } from 'react-toastify';
+import channelsApi, { useGetChannelsQuery } from '../../../api/channelsApi.js';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedChannel } from '../../../slices/channelSlice.js';
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-//import { AddButton } from '../../../icons';
-import { routes } from "../../../utils";
+import { routes } from '../../../utils';
 import cn from 'classnames';
-import { setModal } from "../../../slices/modalSlice.js";
-import { io } from "socket.io-client";
-import { ModalsContainer } from "../../../components/modals";
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import { deleteAuthorization } from "../../../slices/authSlice.js";
-import { getSelectedChannel } from "../../../slices/selectors.js";
+import { setModal } from '../../../slices/modalSlice.js';
+import { io } from 'socket.io-client';
+import { ModalsContainer } from '../../../components/modals';
+import { useTranslation } from 'react-i18next';
+import { deleteAuthorization } from '../../../slices/authSlice.js';
+import { getSelectedChannel } from '../../../slices/selectors.js';
 
-
-export const Channels = () => {
+const Channels = () => {
   const { t } = useTranslation();
   const { data, error, isLoading } = useGetChannelsQuery();
   const selectedChannel = useSelector(getSelectedChannel);
@@ -26,7 +24,7 @@ export const Channels = () => {
     add: 'add',
     delete: 'delete',
     rename: 'rename',
-  }
+  };
 
   useEffect(() => {
     if (error) {
@@ -35,30 +33,30 @@ export const Channels = () => {
         redirect(routes.login);
       } else {
         console.log(error);
-        toast(t('errors.networkError'))
+        toast(t('errors.networkError'));
       }
     }
   }, [error, redirect, dispatch, t]);
 
   useEffect(() => {
     const addChannel = (newChannel) => dispatch(
-      channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
-        draftChannels.push(newChannel);
-      }),
+      channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => (
+        draftChannels.push(newChannel)
+      )),
     );
 
     const deleteChannel = ({ id }) => dispatch(
-      channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
-        return draftChannels.filter((channel) => channel.id !== id);
-      }),
+      channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => (
+        draftChannels.filter((channel) => channel.id !== id)
+      )),
     );
 
     const renameChannel = (editedChannel) => dispatch(
-      channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
-        return draftChannels
+      channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => (
+        draftChannels
           .filter((channel) => channel.id !== editedChannel.id)
-          .concat(editedChannel);
-      }),
+          .concat(editedChannel)
+      )),
     );
 
     const socket = io();
@@ -79,8 +77,7 @@ export const Channels = () => {
       socket.off('newChannel');
       socket.off('removeChannel');
       socket.off('renameChannel');
-    }
-
+    };
   }, [dispatch]);
 
   const handleClickChannel = (channel) => {
@@ -98,46 +95,55 @@ export const Channels = () => {
           type="button" 
           className={
             cn('w-100', 'rounded-0', 'text-start',
-              { 'text-truncate': removable }, 'btn', 
+              { 'text-truncate': removable }, 'btn',
               { 'btn-secondary': id === selectedChannel.id },
             )}
-          onClick={() => handleClickChannel({ id, name, removable })}
+          onClick={() => handleClickChannel(
+            {
+              id,
+              name,
+              removable,
+            }
+          )}
         >
           <span className="me-1">{t('chatPage.grid')}</span>
           {name}
         </button>
-        {removable &&
+        {removable && (
           <div className="dropdown">
             <button 
-              className="flex-grow-0 btn dropdown-toggle dropdown-toggle-split" 
-              type="button" 
-              id={`dropdownMenuButton${id}`} 
-              data-bs-toggle="dropdown" 
-              aria-expanded="false">
+              className="flex-grow-0 btn dropdown-toggle dropdown-toggle-split"
+              type="button"
+              id={`dropdownMenuButton${id}`}
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
               <span className="visually-hidden">{t('chatPage.channelManage')}</span>
             </button>
             <ul className="dropdown-menu" aria-labelledby={`dropdownMenuButton${id}`}>
               <li>
                 <a 
-                  className="dropdown-item" 
-                  role="button" 
-                  href="#" 
-                  onClick={() => handleRenderModal(modals.rename, id, name)}>
+                  className="dropdown-item"
+                  role="button"
+                  href="#"
+                  onClick={() => handleRenderModal(modals.rename, id, name)}
+                >
                   {t('chatPage.rename')}
                 </a>
               </li>
               <li>
                 <a 
-                  className="dropdown-item" 
-                  role="button" 
-                  href="#" 
-                  onClick={() => handleRenderModal(modals.delete, id)}>
+                  className="dropdown-item"
+                  role="button"
+                  href="#"
+                  onClick={() => handleRenderModal(modals.delete, id)}
+                >
                   {t('chatPage.delete')}
                 </a>
               </li>
             </ul>
           </div>
-        }
+        )}
       </div>
     </li>
   ));
@@ -155,16 +161,20 @@ export const Channels = () => {
         <button
           type="button"
           className="btn-outline-primary btn-sm"
-          onClick={() => handleRenderModal(modals.add)}>
+          onClick={() => handleRenderModal(modals.add)}
+        >
           +
         </button>
       </div>
       <ul 
-        id="channels-box" 
-        className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
+        id="channels-box"
+        className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
+      >
         {channelsList}
       </ul>
       <ModalsContainer />
     </div>
   );
 };
+
+export default Channels;

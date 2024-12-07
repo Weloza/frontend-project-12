@@ -1,13 +1,13 @@
-import { SendButton } from "../../../icons";
-import { useSelector } from "react-redux";
-import { useAddMessageMutation } from "../../../api/messagesApi";
-import { useFormik } from "formik";
-import { useEffect, useRef } from "react";
-import { useTranslation } from "react-i18next";
 import filter from 'leo-profanity';
-import { getSelectedChannel, getUsername } from "../../../slices/selectors";
+import { SendButton } from '../../../icons';
+import { useSelector } from 'react-redux';
+import { useAddMessageMutation } from '../../../api/messagesApi';
+import { useFormik } from 'formik';
+import { useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { getSelectedChannel, getUsername } from '../../../slices/selectors';
 
-export const SendForm = () => {
+const SendForm = () => {
   const { t } = useTranslation();
   const selectedChannel = useSelector(getSelectedChannel);
   const username = useSelector(getUsername);
@@ -20,20 +20,18 @@ export const SendForm = () => {
       const message = {
         body: filteredMessage,
         channelId: selectedChannel.id,
-        username: username,
+        username,
       };
 
       await addMessage(message);
       resetForm();
-
     } catch (error) {
       console.log(error);
-
     } finally {
       setSubmitting(false);
       input.current.focus();
     };
-  }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -51,10 +49,9 @@ export const SendForm = () => {
   const isEmpty = (message) => {
     if (message.trim() === '') {
       return true;
-    } else {
-      return false;
     }
-  }
+    return false;
+  };
 
   return (
     <div className="mt-auto px-5 py-3">
@@ -62,8 +59,8 @@ export const SendForm = () => {
         <div className="input-group has-validation">
           <input
             name="message"
-            aria-label={t('chatPage.newMessage')} 
-            placeholder={t('chatPage.enterMessage')} 
+            aria-label={t('chatPage.newMessage')}
+            placeholder={t('chatPage.enterMessage')}
             className="border-0 p-0 ps-2 form-control"
             value={formik.values.message}
             onChange={formik.handleChange}
@@ -76,6 +73,8 @@ export const SendForm = () => {
           </button>
         </div>
       </form>
-    </div>   
-  )
+    </div>  
+  );
 };
+
+export default SendForm;

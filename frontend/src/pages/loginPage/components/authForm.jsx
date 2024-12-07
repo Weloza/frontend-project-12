@@ -1,14 +1,14 @@
-import axios, { isAxiosError } from "axios";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setToken, setUsername } from "../../../slices/authSlice";
-import { paths, routes } from "../../../utils";
-import { useFormik } from "formik";
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
+import axios, { isAxiosError } from 'axios';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import { setToken, setUsername } from '../../../slices/authSlice';
+import { paths, routes } from '../../../utils';
+import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
 
-export const AuthForm = () => {
+const AuthForm = () => {
   const { t } = useTranslation();
   const [error, setError] = useState(null);
   const redirect = useNavigate();
@@ -26,8 +26,10 @@ export const AuthForm = () => {
     await axios.post(path, values)
       .then(({ data }) => {
         if (data.token) {
-          const token = data.token;
-          const username = data.username;
+          const {
+            token,
+            username,
+          } = data;
 
           dispatch(setToken(token));
           dispatch(setUsername(username));
@@ -43,11 +45,11 @@ export const AuthForm = () => {
             setError('AuthError');
           }
         } else {
-          console.log(err)
-          toast(t('errors.networkError'))
+          console.log(err);
+          toast(t('errors.networkError'));
         }
         setSubmitting(false);
-      })
+      });
   };
 
   const formik = useFormik({
@@ -94,3 +96,5 @@ export const AuthForm = () => {
     </form>
   );
 };
+
+export default AuthForm;

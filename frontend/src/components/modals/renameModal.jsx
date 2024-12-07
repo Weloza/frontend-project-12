@@ -1,17 +1,18 @@
 import { Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import { toast } from 'react-toastify';
 import { useEditChannelMutation } from '../../api/channelsApi';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 
-export const RenameModal = (props) => {
+const RenameModal = (props) => {
+  const data = props.data;
   const {
     schema,
     editedChannelId,
     editedChannelName,
     handleCloseModal,
-  } = props.data;
+  } = data;
 
   const { t } = useTranslation();
   const [editChannel] = useEditChannelMutation();
@@ -36,7 +37,7 @@ export const RenameModal = (props) => {
       console.log('err', error);
       toast.error(t('error.networkError'));
     }
-  }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -56,26 +57,27 @@ export const RenameModal = (props) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <Form.Control 
+            <Form.Control
               name="newChannelName"
               id="newChannelName"
-              className="mb-2 form-control" 
-              value={formik.values.newChannelName} 
+              className="mb-2 form-control"
+              value={formik.values.newChannelName}
               onChange={formik.handleChange}
               isInvalid={formik.errors.newChannelName}
               ref={input}
             />
-            <Form.Label className="visually-hidden" htmlFor='newChannelName'>
+            <Form.Label className="visually-hidden" htmlFor="newChannelName">
               {t('modal.channelName')}
             </Form.Label>
             <Form.Control.Feedback className="invalid-feedback">
               {formik.errors.newChannelName}
             </Form.Control.Feedback>
             <div className="d-flex justify-content-end">
-              <button 
-                type="button" 
-                className="me-2 btn btn-secondary" 
-                onClick={handleCloseModal}>
+              <button
+                type="button"
+                className="me-2 btn btn-secondary"
+                onClick={handleCloseModal}
+              >
                 {t('modal.cancel')}
               </button>
               <button type="submit" className="btn btn-primary">{t('modal.send')}</button>
@@ -86,3 +88,5 @@ export const RenameModal = (props) => {
     </Modal>
   );
 };
+
+export default RenameModal;

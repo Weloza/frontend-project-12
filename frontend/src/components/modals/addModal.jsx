@@ -1,18 +1,19 @@
 import { Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
+import filter from 'leo-profanity';
 import { useAddChannelMutation } from '../../api/channelsApi';
 import { setSelectedChannel } from '../../slices/channelSlice';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import filter from 'leo-profanity';
 
-export const AddModal = (props) => {
+const AddModal = (props) => {
+  const data = props.data;
   const {
     schema,
     handleCloseModal,
-  } = props.data;
+  } = data;
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
@@ -30,7 +31,7 @@ export const AddModal = (props) => {
       const filteredName = filter.clean(values.newChannelName);
       const newChannel = { name: filteredName };
       const response = await addChannel(newChannel);
-      
+
       dispatch(setSelectedChannel(response.data));
       toast.success(t('modal.channelAddSuccess'));
       handleCloseModal();
@@ -39,7 +40,7 @@ export const AddModal = (props) => {
       console.log(t('errors.networkError'), error);
       toast.error(t('error.networkError'));
     }
-  }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -58,11 +59,11 @@ export const AddModal = (props) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit}>
           <Form.Group>
-            <Form.Control 
-              name="newChannelName" 
-              type="text" 
-              className="mb-2" 
-              value={formik.values.newChannelName} 
+            <Form.Control
+              name="newChannelName"
+              type="text"
+              className="mb-2"
+              value={formik.values.newChannelName}
               onChange={formik.handleChange}
               isInvalid={formik.errors.newChannelName}
               ref={input}
@@ -74,16 +75,18 @@ export const AddModal = (props) => {
             </Form.Control.Feedback>
           </Form.Group>
           <div className="d-flex justify-content-end">
-            <button 
-              type="button" 
-              className="me-2 btn btn-secondary" 
-              onClick={handleCloseModal}>
+            <button
+              type="button"
+              className="me-2 btn btn-secondary"
+              onClick={handleCloseModal}
+            >
               {t('modal.cancel')}
             </button>
-            <button 
-              type="submit" 
-              className="btn btn-primary" 
-              disabled={!formik.isValid}>
+            <button
+              type="submit"
+              className="btn btn-primary"
+              disabled={!formik.isValid}
+            >
               {t('modal.send')}
             </button>
           </div>
@@ -92,3 +95,5 @@ export const AddModal = (props) => {
     </Modal>
   );
 };
+
+export default AddModal;

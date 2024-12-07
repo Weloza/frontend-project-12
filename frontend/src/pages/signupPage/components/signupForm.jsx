@@ -1,15 +1,15 @@
-import axios, { isAxiosError } from "axios";
-import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setToken, setUsername } from "../../../slices/authSlice";
-import { getNewUserSchema, paths, routes } from "../../../utils";
-import { useFormik } from "formik";
-import { useTranslation } from "react-i18next";
-import { Tooltip } from "./tooltip";
+import axios, { isAxiosError } from 'axios';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useFormik } from 'formik';
+import { useTranslation } from 'react-i18next';
+import { Tooltip } from './tooltip';
 import cn from 'classnames';
+import { setToken, setUsername } from '../../../slices/authSlice';
+import { getNewUserSchema, paths, routes } from '../../../utils';
 
-export const SignupForm = () => {
+const SignupForm = () => {
   const { t } = useTranslation();
   const [error, setError] = useState(null);
   const redirect = useNavigate();
@@ -28,8 +28,10 @@ export const SignupForm = () => {
     await axios.post(path, values)
       .then(({ data }) => {
         if (data.token) {
-          const token = data.token;
-          const username = data.username;
+          const {
+            token,
+            username,
+          } = data;
 
           dispatch(setToken(token));
           dispatch(setUsername(username));
@@ -44,13 +46,13 @@ export const SignupForm = () => {
           if (err.response.status === 409) {
             setError(t('errors.signupError'));
           } else {
-          setError(err.message);
+            setError(err.message);
           }
         } else {
-          setError(t('errors.networkError'))
+          setError(t('errors.networkError'));
         }
         setSubmitting(false);
-      })
+      });
   };
 
   const formik = useFormik({
@@ -82,7 +84,12 @@ export const SignupForm = () => {
           autoFocus
         />
         <label htmlFor="username">{t('signupPage.username')}</label>
-        <Tooltip touched={formik.touched.username} validError={formik.errors.username} authError={error} last={false} />
+        <Tooltip
+          touched={formik.touched.username}
+          validError={formik.errors.username}
+          authError={error}
+          last={false}
+        />
       </div>
       <div className="form-floating mb-3">
         <input
@@ -98,7 +105,12 @@ export const SignupForm = () => {
           onBlur={formik.handleBlur}
         />
         <label htmlFor="password">{t('signupPage.password')}</label>
-        <Tooltip touched={formik.touched.password} validError={formik.errors.password} authError={error} last={false}/>
+        <Tooltip
+          touched={formik.touched.password}
+          validError={formik.errors.password}
+          authError={error}
+          last={false}
+        />
       </div>
       <div className="form-floating mb-4">
         <input
@@ -114,11 +126,18 @@ export const SignupForm = () => {
           onBlur={formik.handleBlur}
         />
         <label htmlFor="confirmPassword">{t('signupPage.confirmPassword')}</label>
-        <Tooltip touched={formik.touched.confirmPassword} validError={formik.errors.confirmPassword} authError={error} last={true} />
+        <Tooltip
+          touched={formik.touched.confirmPassword}
+          validError={formik.errors.confirmPassword}
+          authError={error}
+          last={true}
+        />
       </div>
       <button type="submit" className="w-100 mb-3 btn btn-outline-primary">
         {t('signupPage.signup')}
       </button>
     </form>
   );
-}
+};
+
+export default SignupForm;

@@ -1,9 +1,11 @@
 import { Navbar, PageContainer } from '../../components';
 import { ErrorView } from './components';
 
-export const ErrorPage = () => (
+const ErrorPage = () => (
   <PageContainer>
     <Navbar />
     <ErrorView />
   </PageContainer>
 );
+
+export default ErrorPage;

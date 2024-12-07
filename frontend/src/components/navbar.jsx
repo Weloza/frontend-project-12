@@ -1,11 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import { deleteAuthorization } from "../slices/authSlice";
-import { useNavigate } from "react-router-dom";
-import { routes } from "../utils";
-import { useTranslation } from "react-i18next";
-import { getToken } from "../slices/selectors";
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { deleteAuthorization } from '../slices/authSlice';
+import { routes } from '../utils';
+import { getToken } from '../slices/selectors';
 
-export const Navbar = () => {
+const Navbar = () => {
   const { t } = useTranslation();
   const token = useSelector(getToken);
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export const Navbar = () => {
   const handleClick = () => {
     dispatch(deleteAuthorization());
     redirect(routes.login);
-  }
+  };
 
   return (
     <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
@@ -24,7 +24,8 @@ export const Navbar = () => {
           <button
             type="button"
             className="btn btn-primary"
-            onClick={() => handleClick()}>
+            onClick={() => handleClick()}
+          >
             {t('navbar.exit')}
           </button>
         )}
@@ -32,3 +33,5 @@ export const Navbar = () => {
     </nav>
   );
 };
+
+export default Navbar;

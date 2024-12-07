@@ -1,5 +1,5 @@
 import filter from 'leo-profanity';
-import { SendButton } from '../../../icons';
+import SendButton from '../../../icons/sendButton';
 import { useSelector } from 'react-redux';
 import { useAddMessageMutation } from '../../../api/messagesApi';
 import { useFormik } from 'formik';

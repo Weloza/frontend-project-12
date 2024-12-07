@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import { Tooltip } from './tooltip';
+import Tooltip from './tooltip';
 import cn from 'classnames';
 import { setToken, setUsername } from '../../../slices/authSlice';
 import { getNewUserSchema, paths, routes } from '../../../utils';

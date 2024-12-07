@@ -1,5 +1,6 @@
-import { Navbar, PageContainer } from '../../components';
-import { ErrorView } from './components';
+import PageContainer from '../../components/pageContainer';
+import Navbar from '../../components/navbar';
+import ErrorView from './components/errorView';
 
 const ErrorPage = () => (
   <PageContainer>

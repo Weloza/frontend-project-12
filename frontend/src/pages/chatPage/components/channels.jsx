@@ -8,7 +8,7 @@ import { routes } from '../../../utils';
 import cn from 'classnames';
 import { setModal } from '../../../slices/modalSlice.js';
 import { io } from 'socket.io-client';
-import { ModalsContainer } from '../../../components/modals';
+import ModalsContainer from '../../../components/modals/modalsContainer.jsx';
 import { useTranslation } from 'react-i18next';
 import { deleteAuthorization } from '../../../slices/authSlice.js';
 import { getSelectedChannel } from '../../../slices/selectors.js';
@@ -39,25 +39,25 @@ const Channels = () => {
   }, [error, redirect, dispatch, t]);
 
   useEffect(() => {
-    const addChannel = (newChannel) => dispatch(
-      channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => (
-        draftChannels.push(newChannel)
-      )),
-    );
+    const addChannel = (newChannel) => {
+      dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => {
+        draftChannels.push(newChannel);
+      }));
+    };
 
-    const deleteChannel = ({ id }) => dispatch(
-      channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => (
+    const deleteChannel = ({ id }) => {
+      dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => (
         draftChannels.filter((channel) => channel.id !== id)
-      )),
-    );
+      )));
+    };
 
-    const renameChannel = (editedChannel) => dispatch(
-      channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => (
+    const renameChannel = (editedChannel) => {
+      dispatch(channelsApi.util.updateQueryData('getChannels', undefined, (draftChannels) => (
         draftChannels
           .filter((channel) => channel.id !== editedChannel.id)
           .concat(editedChannel)
-      )),
-    );
+      )));
+    };
 
     const socket = io();
 

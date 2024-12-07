@@ -3,15 +3,14 @@ import i18next from 'i18next';
 import filter from 'leo-profanity';
 import store from './store/store.js';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { ProtectedRoute, routes } from './utils';
-import {
-  LoginPage, 
-  ChatPage, 
-  ErrorPage, 
-  SignupPage
-} from './pages';
+import { routes } from './utils';
+import ProtectedRoute from './utils/ProtectedRoute.jsx';
+import ChatPage from './pages/chatPage/chatPage.jsx';
+import LoginPage from './pages/loginPage/loginPage.jsx';
+import SignupPage from './pages/signupPage/signupPage.jsx';
+import ErrorPage from './pages/errorPage/errorPage.jsx';
 import { initReactI18next } from 'react-i18next';
-import { ru } from './locales/ru';
+import ru from './locales/ru';
 import { ToastContainer } from 'react-toastify';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { Provider as MainProvider } from 'react-redux';

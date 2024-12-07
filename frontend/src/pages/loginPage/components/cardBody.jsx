@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import LoginImage from '../../../images/login.jpg';
-import { AuthForm } from './authForm';
+import AuthForm from './authForm';
 
 const CardBody = () => {
   const { t } = useTranslation();

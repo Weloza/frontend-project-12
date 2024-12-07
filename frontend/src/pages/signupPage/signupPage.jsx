@@ -1,5 +1,7 @@
-import { PageContainer, Navbar, CardContainer } from '../../components';
-import { CardBody } from './components';
+import PageContainer from '../../components/pageContainer';
+import Navbar from '../../components/navbar';
+import CardContainer from '../../components/cardContainer';
+import CardBody from './components/cardBody';
 
 const SignupPage = () => (
   <PageContainer>

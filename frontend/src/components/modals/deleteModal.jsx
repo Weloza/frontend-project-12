@@ -4,6 +4,7 @@ import { useRemoveChannelMutation } from '../../api/channelsApi';
 import { setSelectedChannel } from '../../slices/channelSlice';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { getSelectedChannelId } from '../../slices/selectors';
 
 export const DeleteModal = (props) => {
   const {
@@ -14,7 +15,7 @@ export const DeleteModal = (props) => {
 
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const selectedChannelId = useSelector((state) => state.selectedChannel.selectedChannel.id);
+  const selectedChannelId = useSelector(getSelectedChannelId);
   const [removeChannel] = useRemoveChannelMutation();
 
   const handleDeleteChannel = async (id) => {

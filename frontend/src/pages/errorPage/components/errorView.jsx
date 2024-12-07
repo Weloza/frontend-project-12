@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { PageNotFound } from "../../../images/pageNotFound";
+import { routes } from "../../../utils";
 
 export const ErrorView = () => {
   const { t } = useTranslation();
@@ -10,7 +11,7 @@ export const ErrorView = () => {
       <h1 className="h4 text-muted">{t('errorPage.pageNotFound')}</h1>
       <p className="text-muted">
         {t('errorPage.butYouCanGo')} 
-        <a href="/">
+        <a href={routes.chat}>
           {t('errorPage.toMainPage')}
         </a>
       </p>

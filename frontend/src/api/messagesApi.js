@@ -18,13 +18,6 @@ const messagesApi = createApi({
         body: message,
       }),
     }),
-    editMessage: builder.mutation({
-      query: (message) => ({
-        url: message.id,
-        method: 'PATCH',
-        body: message,
-      }),
-    }),
     removeMessage: builder.mutation({
       query: (id) => ({
         url: id,

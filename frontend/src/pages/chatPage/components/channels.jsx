@@ -154,8 +154,7 @@ export const Channels = () => {
         <button
           type="button"
           className="p-0 text-primary btn btn-group-vertical"
-          onClick={() => handleRenderModal(modals.add)}
-        >
+          onClick={() => handleRenderModal(modals.add)}>
           <AddButton />
         </button>
       </div>

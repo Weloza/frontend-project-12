@@ -12,6 +12,7 @@ https://frontend-project-12-qomw.onrender.com/
 **Commands**
 
 *Development*
+
 Run backend server
 ```sh
 make start-backend
@@ -22,6 +23,7 @@ make start-frontend
 ```
 
 *Deploy*
+
 Build
 ```sh
 make install

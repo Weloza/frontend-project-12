@@ -1,21 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import { setModal } from "../../slices/modalSlice";
-import channelsApi from "../../api/channelsApi";
-import { getValidationSchema } from "../../utils";
+import { getNewChannelSchema } from "../../utils";
 import { AddModal, DeleteModal, RenameModal } from "../modals";
 import { useTranslation } from "react-i18next";
+import { getActiveModal, getChannels, getEditedChannelId } from "../../slices/selectors";
 
 export const ModalsContainer = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
-  const activeModal = useSelector((state) => state.modal.activeModal);
+  const activeModal = useSelector(getActiveModal);
 
-  const selector = channelsApi.endpoints.getChannels.select();
-  const channelsNames = useSelector((state) => selector(state).data)
+  const channelsNames = useSelector(getChannels)
     .map((channel) => channel.name);
-  const schema = getValidationSchema(t, channelsNames);
+  const schema = getNewChannelSchema(t, channelsNames);
 
-  const editedChannelId = useSelector((state) => state.modal.editedChannelId);
+  const editedChannelId = useSelector(getEditedChannelId);
 
   const handleCloseModal = () => {
     dispatch(setModal({ 

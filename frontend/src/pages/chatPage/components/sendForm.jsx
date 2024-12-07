@@ -49,6 +49,14 @@ export const SendForm = () => {
     }
   }, [formik.isSubmitting, selectedChannel]);
 
+  const isEmpty = (message) => {
+    if (message.trim() === '') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return (
     <div className="mt-auto px-5 py-3">
       <form className="py-1 border rounded-2" noValidate="" onSubmit={formik.handleSubmit}>
@@ -63,7 +71,7 @@ export const SendForm = () => {
             disabled={formik.isSubmitting}
             ref={input}
           />
-          <button type="submit" className="btn btn-group-vertical" disabled={formik.isSubmitting}>
+          <button type="submit" className="btn btn-group-vertical" disabled={formik.isSubmitting || isEmpty(formik.values.message)}>
             <SendButton color="#0d6efd" />
             <span className="visually-hidden">{t('chatPage.send')}</span>
           </button>

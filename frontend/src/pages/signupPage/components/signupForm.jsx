@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setToken, setUsername } from "../../../slices/authSlice";
-import { getValidationSchema, paths, routes } from "../../../utils";
+import { getNewUserSchema, paths, routes } from "../../../utils";
 import { useFormik } from "formik";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "./tooltip";
@@ -14,7 +14,7 @@ export const SignupForm = () => {
   const [error, setError] = useState(null);
   const redirect = useNavigate();
   const dispatch = useDispatch();
-  const schema = getValidationSchema(t);
+  const schema = getNewUserSchema(t);
   const input = useRef(null);
 
   useEffect(() => {

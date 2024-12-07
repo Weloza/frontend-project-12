@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSelectedChannel } from '../../../slices/channelSlice.js';
 import { useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
-import { AddButton } from '../../../icons';
+//import { AddButton } from '../../../icons';
 import { routes } from "../../../utils";
 import cn from 'classnames';
 import { setModal } from "../../../slices/modalSlice.js";
@@ -154,9 +154,9 @@ export const Channels = () => {
         <b>{t('chatPage.channels')}</b>
         <button
           type="button"
-          className="p-0 text-primary btn btn-group-vertical"
+          className="btn-outline-primary btn-sm"
           onClick={() => handleRenderModal(modals.add)}>
-          <AddButton />
+          +
         </button>
       </div>
       <ul 

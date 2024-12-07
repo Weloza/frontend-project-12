@@ -40,7 +40,7 @@ export const RenameModal = (props) => {
 
   const formik = useFormik({
     initialValues: {
-      newChannelName: editedChannelName,
+      newChannelName: '',
     },
     validationSchema: schema,
     onSubmit: handleRenameChannel,

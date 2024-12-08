@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const getNewChannelSchema = (t, channelsNames) => (    
+export const getNewChannelSchema = (t, channelsNames) => ( 
   Yup.object().shape({
     newChannelName: Yup.string()
       .min(3, t('validationSchema.channelLength'))

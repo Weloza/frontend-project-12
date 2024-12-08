@@ -16,7 +16,7 @@ const getUsername = (state) => state.auth.username;
 
 const getActiveModal = (state) => state.modal.activeModal;
 
-export { 
+export {
   getSelectedChannelId,
   getChannels,
   getEditedChannelId,

@@ -8,7 +8,6 @@ import { toast } from 'react-toastify';
 import { useAddChannelMutation } from '../../api/channelsApi';
 import { setSelectedChannel } from '../../slices/channelSlice';
 
-
 const AddModal = ({ data }) => {
   const {
     schema,

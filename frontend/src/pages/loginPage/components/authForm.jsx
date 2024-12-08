@@ -1,11 +1,11 @@
+import { useTranslation } from 'react-i18next';
 import axios, { isAxiosError } from 'axios';
 import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { paths, routes } from '../../../utils';
 import { useFormik } from 'formik';
-import { useTranslation } from 'react-i18next';
+import { paths, routes } from '../../../utils';
 import { setToken, setUsername } from '../../../slices/authSlice';
 
 const AuthForm = () => {

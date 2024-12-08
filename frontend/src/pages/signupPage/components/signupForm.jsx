@@ -87,7 +87,6 @@ const SignupForm = () => {
           value={formik.values.username}
           onBlur={formik.handleBlur}
           ref={input}
-          autoFocus
         />
         <label htmlFor="username">{t('signupPage.username')}</label>
         <Tooltip

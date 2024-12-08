@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next';
 import { setModal } from '../../slices/modalSlice';
 import { getNewChannelSchema } from '../../utils';
 import AddModal from './addModal';
-import DeleteModal from './deleteModal';
 import RenameModal from './renameModal';
+import DeleteModal from './deleteModal';
 import {
   getActiveModal,
   getChannels,

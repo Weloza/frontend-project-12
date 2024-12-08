@@ -13,11 +13,11 @@ const Messages = ({ children }) => {
   const selectedChannelMessages = data.filter(({ channelId }) => channelId === selectedChannel.id);
 
   useEffect(() => {
-    const updateMessages = (newMessage) => dispatch(
-      messagesApi.util.updateQueryData('getMessages', undefined, (draftMessages) => {
+    const updateMessages = (newMessage) => {
+      dispatch(messagesApi.util.updateQueryData('getMessages', undefined, (draftMessages) => {
         draftMessages.push(newMessage);
-      }),
-    );
+      }));
+    };
 
     const socket = io();
 

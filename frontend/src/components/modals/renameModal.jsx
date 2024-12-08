@@ -4,6 +4,8 @@ import { toast } from 'react-toastify';
 import { useEditChannelMutation } from '../../api/channelsApi';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { setSelectedChannel } from '../../slices/channelSlice';
 
 const RenameModal = (props) => {
   const data = props.data;
@@ -15,6 +17,7 @@ const RenameModal = (props) => {
   } = data;
 
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const [editChannel] = useEditChannelMutation();
   const input = useRef(null);
 
@@ -27,10 +30,11 @@ const RenameModal = (props) => {
 
   const handleRenameChannel = async (values) => {
     try {
-      await editChannel({
+      const response = await editChannel({
         id: editedChannelId,
         name: values.newChannelName,
       });
+      dispatch(setSelectedChannel(response.data));
       toast.success(t('modal.channelRenameSuccess'));
       handleCloseModal();
     } catch (error) {

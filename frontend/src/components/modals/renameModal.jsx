@@ -1,14 +1,13 @@
 import { Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { toast } from 'react-toastify';
-import { useEditChannelMutation } from '../../api/channelsApi';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import { useEditChannelMutation } from '../../api/channelsApi';
 import { setSelectedChannel } from '../../slices/channelSlice';
 
-const RenameModal = (props) => {
-  const data = props.data;
+const RenameModal = ({ data }) => {
   const {
     schema,
     editedChannelId,

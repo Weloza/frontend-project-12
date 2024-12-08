@@ -10,17 +10,21 @@ const Tooltip = (props) => {
     return (
       <div className="invalid-tooltip">{validError}</div>
     );
-  } else if (authError && last) {
+  }
+
+  if (authError && last) {
     return (
       <div className="invalid-tooltip">{authError}</div>
     );
-  } else if (authError && !last) {
+  }
+
+  if (authError && !last) {
     return (
       <div className="invalid-tooltip" />
     );
-  } else {
-    return (null);
   }
+
+  return (null);
 };
 
 export default Tooltip;

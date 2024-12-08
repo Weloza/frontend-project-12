@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import messagesApi, { useGetMessagesQuery } from '../../../api/messagesApi';
 import { useEffect } from 'react';
 import { io } from 'socket.io-client';
+import messagesApi, { useGetMessagesQuery } from '../../../api/messagesApi';
 import { getSelectedChannel } from '../../../slices/selectors';
 
 const Messages = ({ children }) => {
@@ -25,8 +25,7 @@ const Messages = ({ children }) => {
       updateMessages(payload);
     });
 
-    return () => { socket.off('newMessage') };
-
+    return () => { socket.off('newMessage'); };
   }, [dispatch]);
 
   return (

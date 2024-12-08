@@ -25,7 +25,7 @@ export const {
   setModal,
   setEditedChannelId,
   setShowModal,
-  setHideModal
+  setHideModal,
 } = modalSlice.actions;
 
 export default modalSlice.reducer;

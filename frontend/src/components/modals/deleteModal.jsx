@@ -6,8 +6,7 @@ import { useRemoveChannelMutation } from '../../api/channelsApi';
 import { setSelectedChannel } from '../../slices/channelSlice';
 import { getSelectedChannelId } from '../../slices/selectors';
 
-export const DeleteModal = (props) => {
-  const data = props.data;
+export const DeleteModal = ({ data }) => {
   const {
     editedChannelId,
     handleCloseModal,

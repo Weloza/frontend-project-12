@@ -1,10 +1,10 @@
 import filter from 'leo-profanity';
-import SendButton from '../../../icons/sendButton';
 import { useSelector } from 'react-redux';
-import { useAddMessageMutation } from '../../../api/messagesApi';
 import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import SendButton from '../../../icons/sendButton';
+import { useAddMessageMutation } from '../../../api/messagesApi';
 import { getSelectedChannel, getUsername } from '../../../slices/selectors';
 
 const SendForm = () => {
@@ -30,7 +30,7 @@ const SendForm = () => {
     } finally {
       setSubmitting(false);
       input.current.focus();
-    };
+    }
   };
 
   const formik = useFormik({
@@ -73,7 +73,7 @@ const SendForm = () => {
           </button>
         </div>
       </form>
-    </div>  
+    </div>
   );
 };
 

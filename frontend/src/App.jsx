@@ -1,7 +1,6 @@
 import 'react-toastify/dist/ReactToastify.css';
 import i18next from 'i18next';
 import filter from 'leo-profanity';
-import store from './store/store.js';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { routes } from './utils';
 import ProtectedRoute from './utils/ProtectedRoute.jsx';
@@ -14,6 +13,7 @@ import ru from './locales/ru';
 import { ToastContainer } from 'react-toastify';
 import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import { Provider as MainProvider } from 'react-redux';
+import store from './store/store.js';
 
 const App = () => {
   i18next

@@ -4,8 +4,8 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
-import Tooltip from './tooltip';
 import cn from 'classnames';
+import Tooltip from './tooltip';
 import { setToken, setUsername } from '../../../slices/authSlice';
 import { getNewUserSchema, paths, routes } from '../../../utils';
 
@@ -22,6 +22,12 @@ const SignupForm = () => {
       input.current.focus();
     }
   }, [error]);
+
+  useEffect(() => {
+    if (input.current) {
+      input.current.focus();
+    }
+  }, []);
 
   const handleSubmit = async (values, { setSubmitting }) => {
     const path = paths.signup();
@@ -130,7 +136,7 @@ const SignupForm = () => {
           touched={formik.touched.confirmPassword}
           validError={formik.errors.confirmPassword}
           authError={error}
-          last={true}
+          last
         />
       </div>
       <button type="submit" className="w-100 mb-3 btn btn-outline-primary">

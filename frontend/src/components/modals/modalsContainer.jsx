@@ -5,11 +5,11 @@ import { getNewChannelSchema } from '../../utils';
 import AddModal from './addModal';
 import DeleteModal from './deleteModal';
 import RenameModal from './renameModal';
-import { 
+import {
   getActiveModal,
   getChannels,
   getEditedChannelId,
-  getEditedChannelName
+  getEditedChannelName,
 } from '../../slices/selectors';
 
 const ModalsContainer = () => {

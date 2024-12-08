@@ -2,14 +2,14 @@ import { Modal, Form } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import filter from 'leo-profanity';
-import { useAddChannelMutation } from '../../api/channelsApi';
-import { setSelectedChannel } from '../../slices/channelSlice';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import { useAddChannelMutation } from '../../api/channelsApi';
+import { setSelectedChannel } from '../../slices/channelSlice';
 
-const AddModal = (props) => {
-  const data = props.data;
+
+const AddModal = ({ data }) => {
   const {
     schema,
     handleCloseModal,

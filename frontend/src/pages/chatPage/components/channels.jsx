@@ -1,7 +1,6 @@
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import channelsApi, { useGetChannelsQuery } from '../../../api/channelsApi.js';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSelectedChannel } from '../../../slices/channelSlice.js';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../../../utils';
@@ -9,7 +8,8 @@ import cn from 'classnames';
 import { setModal } from '../../../slices/modalSlice.js';
 import { io } from 'socket.io-client';
 import ModalsContainer from '../../../components/modals/modalsContainer.jsx';
-import { useTranslation } from 'react-i18next';
+import channelsApi, { useGetChannelsQuery } from '../../../api/channelsApi.js';
+import { setSelectedChannel } from '../../../slices/channelSlice.js';
 import { deleteAuthorization } from '../../../slices/authSlice.js';
 import { getSelectedChannel } from '../../../slices/selectors.js';
 
@@ -91,27 +91,28 @@ const Channels = () => {
   const channelsList = !isLoading && !error && data.map(({ id, name, removable }) => (
     <li key={id} className="nav-item w-100">
       <div role="group" className="d-flex dropdown dnt-group">
-        <button 
-          type="button" 
-          className={
-            cn('w-100', 'rounded-0', 'text-start',
-              { 'text-truncate': removable }, 'btn',
-              { 'btn-secondary': id === selectedChannel.id },
-            )}
-          onClick={() => handleClickChannel(
-            {
-              id,
-              name,
-              removable,
-            }
+        <button
+          type="button"
+          className={cn(
+            'w-100',
+            'rounded-0',
+            'text-start',
+            { 'text-truncate': removable },
+            'btn',
+            { 'btn-secondary': id === selectedChannel.id },
           )}
+          onClick={() => handleClickChannel({
+            id,
+            name,
+            removable,
+          })}
         >
           <span className="me-1">{t('chatPage.grid')}</span>
           {name}
         </button>
         {removable && (
           <div className="dropdown">
-            <button 
+            <button
               className="flex-grow-0 btn dropdown-toggle dropdown-toggle-split"
               type="button"
               id={`dropdownMenuButton${id}`}
@@ -122,7 +123,7 @@ const Channels = () => {
             </button>
             <ul className="dropdown-menu" aria-labelledby={`dropdownMenuButton${id}`}>
               <li>
-                <a 
+                <a
                   className="dropdown-item"
                   role="button"
                   href="#"
@@ -132,7 +133,7 @@ const Channels = () => {
                 </a>
               </li>
               <li>
-                <a 
+                <a
                   className="dropdown-item"
                   role="button"
                   href="#"
@@ -166,7 +167,7 @@ const Channels = () => {
           +
         </button>
       </div>
-      <ul 
+      <ul
         id="channels-box"
         className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block"
       >

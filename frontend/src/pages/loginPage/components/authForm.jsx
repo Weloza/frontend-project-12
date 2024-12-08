@@ -3,10 +3,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { setToken, setUsername } from '../../../slices/authSlice';
 import { paths, routes } from '../../../utils';
 import { useFormik } from 'formik';
 import { useTranslation } from 'react-i18next';
+import { setToken, setUsername } from '../../../slices/authSlice';
 
 const AuthForm = () => {
   const { t } = useTranslation();
@@ -20,6 +20,12 @@ const AuthForm = () => {
       input.current.focus();
     }
   }, [error]);
+
+  useEffect(() => {
+    if (input.current) {
+      input.current.focus();
+    }
+  }, []);
 
   const handleSubmit = async (values, { setSubmitting }) => {
     const path = paths.login();
@@ -73,7 +79,6 @@ const AuthForm = () => {
           onChange={formik.handleChange}
           value={formik.values.username}
           ref={input}
-          autoFocus
         />
         <label htmlFor="username">{t('loginPage.yourNick')}</label>
       </div>

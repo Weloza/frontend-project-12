@@ -34,10 +34,6 @@ export default [
         { allowConstantExport: true },
       ],
       'react/prop-types': 'off',
-      "import/no-extraneous-dependencies": [
-        "error",
-        {"devDependencies": true}
-      ],
     },
   },
 ];

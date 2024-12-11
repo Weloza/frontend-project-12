@@ -2,9 +2,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { setModal } from '../../slices/modalSlice';
 import { getNewChannelSchema } from '../../utils';
-import AddModal from './addModal';
-import RenameModal from './renameModal';
-import DeleteModal from './deleteModal';
+import AddModal from './addModal.jsx';
+import RenameModal from './renameModal.jsx';
+import DeleteModal from './deleteModal.jsx';
 import {
   getActiveModal,
   getChannels,

@@ -2,9 +2,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { setModal } from '../../slices/modalSlice';
 import { getNewChannelSchema } from '../../utils';
-import AddModal from './addModal.jsx';
-import RenameModal from './renameModal.jsx';
-import DeleteModal from './deleteModal.jsx';
+import ModalAdd from './addModal.jsx';
+import ModalRename from './renameModal.jsx';
+import ModalDelete from './deleteModal.jsx';
 import {
   getActiveModal,
   getChannels,
@@ -39,9 +39,9 @@ const ModalsContainer = () => {
   };
 
   const modals = {
-    add: AddModal,
-    rename: RenameModal,
-    delete: DeleteModal,
+    add: ModalAdd,
+    rename: ModalRename,
+    delete: ModalDelete,
   };
 
   const props = {

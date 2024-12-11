@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 import { io } from 'socket.io-client';
+import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import ModalsContainer from '../../../components/modals/modalsContainer.jsx';
 import { routes } from '../../../utils';
 import { setModal } from '../../../slices/modalSlice.js';
@@ -25,6 +26,8 @@ const Channels = () => {
     delete: 'delete',
     rename: 'rename',
   };
+
+  const isClicked = (id) => id === selectedChannel.id ? 'secondary' : 'light';
 
   useEffect(() => {
     if (error) {
@@ -90,15 +93,11 @@ const Channels = () => {
 
   const channelsList = !isLoading && !error && data.map(({ id, name, removable }) => (
     <li key={id} className="nav-item w-100">
-      <div role="group" className="d-flex dropdown dnt-group">
-        <button
-          type="button"
+      <Dropdown as={ButtonGroup} className="d-flex">
+        <Button
+          variant={isClicked(id)}
           className={cn(
-            'w-100',
-            'rounded-0',
-            'text-start',
-            { 'text-truncate': removable },
-            'btn',
+            'w-100 rounded-0 text-start text-truncate btn',
             { 'btn-secondary': id === selectedChannel.id },
           )}
           onClick={() => handleClickChannel({
@@ -109,43 +108,27 @@ const Channels = () => {
         >
           <span className="me-1">{t('chatPage.grid')}</span>
           {name}
-        </button>
+        </Button>
         {removable && (
-          <div className="dropdown">
-            <button
-              className="flex-grow-0 btn dropdown-toggle dropdown-toggle-split"
-              type="button"
-              id={`dropdownMenuButton${id}`}
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <span className="visually-hidden">{t('chatPage.channelManage')}</span>
-            </button>
-            <ul className="dropdown-menu" aria-labelledby={`dropdownMenuButton${id}`}>
-              <li>
-                <a
-                  className="dropdown-item"
-                  role="button"
-                  href="#"
-                  onClick={() => handleRenderModal(modals.rename, id, name)}
-                >
-                  {t('chatPage.rename')}
-                </a>
-              </li>
-              <li>
-                <a
-                  className="dropdown-item"
-                  role="button"
-                  href="#"
-                  onClick={() => handleRenderModal(modals.delete, id)}
-                >
-                  {t('chatPage.delete')}
-                </a>
-              </li>
-            </ul>
-          </div>
+          <>
+            <Dropdown.Toggle split variant={isClicked(id)} id={id} />
+            <Dropdown.Menu>
+              <Dropdown.Item
+                href={t('chatPage.grid')}
+                onClick={() => handleRenderModal(modals.rename, id, name)}
+              >
+                {t('chatPage.rename')}
+              </Dropdown.Item>
+              <Dropdown.Item
+                href={t('chatPage.grid')}
+                onClick={() => handleRenderModal(modals.delete, id)}
+              >
+                {t('chatPage.delete')}
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </>
         )}
-      </div>
+      </Dropdown>
     </li>
   ));
 

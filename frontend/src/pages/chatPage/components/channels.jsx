@@ -26,7 +26,7 @@ const Channels = () => {
     rename: 'rename',
   };
 
-  const isClicked = (id) => id === selectedChannel.id ? 'secondary' : 'light';
+  const isClicked = (id) => (id === selectedChannel.id ? 'secondary' : 'light');
 
   useEffect(() => {
     if (error) {

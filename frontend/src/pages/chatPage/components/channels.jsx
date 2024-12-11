@@ -161,7 +161,7 @@ const Channels = () => {
         <b>{t('chatPage.channels')}</b>
         <button
           type="button"
-          className="btn-outline-primary btn-sm"
+          className="btn-xs btn-outline-primary rounded"
           onClick={() => handleRenderModal(modals.add)}
         >
           +

@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import cn from 'classnames';
 import { io } from 'socket.io-client';
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import ModalsContainer from '../../../components/modals/modalsContainer.jsx';
@@ -96,10 +95,7 @@ const Channels = () => {
       <Dropdown as={ButtonGroup} className="d-flex">
         <Button
           variant={isClicked(id)}
-          className={cn(
-            'w-100 rounded-0 text-start text-truncate btn',
-            { 'btn-secondary': id === selectedChannel.id },
-          )}
+          className="w-100 rounded-0 text-start text-truncate"
           onClick={() => handleClickChannel({
             id,
             name,

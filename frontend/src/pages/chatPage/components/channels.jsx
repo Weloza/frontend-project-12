@@ -111,7 +111,9 @@ const Channels = () => {
         </Button>
         {removable && (
           <>
-            <Dropdown.Toggle split variant={isClicked(id)} id={id} />
+            <Dropdown.Toggle split variant={isClicked(id)} id={id}>
+              <span className="visually-hidden">{t('chatPage.channelManage')}</span>
+            </Dropdown.Toggle>
             <Dropdown.Menu>
               <Dropdown.Item
                 href={t('chatPage.grid')}
